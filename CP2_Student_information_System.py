@@ -56,3 +56,38 @@ def print_record(student):
     print(f"  Year Level   : {student['year_level']}")
     print(f"  GWA          : {student['gwa']:.2f}")
     print_line()
+
+def add_student():
+    if len(students) >= MAX_STUDENTS:
+        print("\n  [!] Database is full. Cannot add more students.")
+        return
+
+    print()
+    print_line("─")
+    print("  ADD NEW STUDENT")
+    print_line("─")
+
+
+    while True:
+        student_id = read_string("  Student ID  : ")
+        if find_student(student_id) == -1:
+            break
+        print(f"  [!] ID '{student_id}' already exists. Use a different ID.")
+
+    first_name  = read_string("  First Name  : ")
+    last_name   = read_string("  Last Name   : ")
+    course      = read_string("  Course      : ")
+    year_level  = read_int   ("  Year Level (1-5): ", 1, 5)
+    gwa         = read_float ("  GWA (0-100) : ", 0.0, 100.0)
+
+    students.append({
+        "id":         student_id,
+        "first_name": first_name,
+        "last_name":  last_name,
+        "course":     course,
+        "year_level": year_level,
+        "gwa":        gwa,
+    })
+
+    print(f"\n  [✓] Student '{first_name} {last_name}' added successfully!")
+    
