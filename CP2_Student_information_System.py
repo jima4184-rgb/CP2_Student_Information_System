@@ -183,3 +183,29 @@ def update_student():
 
     print("\n  [✓] Record updated.")
     print_record(s)
+
+def delete_student():
+    print()
+    print_line("─")
+    print("  DELETE STUDENT")
+    print_line("─")
+
+    student_id = read_string("  Enter Student ID to delete: ")
+    idx = find_student(student_id)
+
+    if idx == -1:
+        print(f"  [!] No student found with ID '{student_id}'.")
+        return
+
+    print("\n  Record to delete:")
+    print_record(students[idx])
+
+    confirm = input("  Are you sure you want to delete this record? (y/n): ").strip().lower()
+    if confirm != "y":
+        print("  Deletion cancelled.")
+        return
+
+    removed = students.pop(idx)
+    print(f"  [✓] Student '{removed['first_name']} {removed['last_name']}' deleted successfully.")
+
+
