@@ -90,4 +90,23 @@ def add_student():
     })
 
     print(f"\n  [✓] Student '{first_name} {last_name}' added successfully!")
-    
+
+def view_all_students():
+    print()
+    print_line("═")
+    print(f"  ALL STUDENTS  ({len(students)}/{MAX_STUDENTS})")
+    print_line("═")
+
+    if not students:
+        print("  No records found.")
+        print_line("═")
+        return
+
+    print(f"  {'ID':<12} {'First Name':<20} {'Last Name':<20} {'Course':<15} {'Yr':>3}  {'GWA':>6}")
+    print_line("─")
+
+    for s in students:
+        print(f"  {s['id']:<12} {s['first_name']:<20} {s['last_name']:<20} "
+              f"{s['course']:<15} {s['year_level']:>3}  {s['gwa']:>6.2f}")
+
+    print_line("═")
