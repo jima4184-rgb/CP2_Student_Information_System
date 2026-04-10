@@ -110,3 +110,21 @@ def view_all_students():
               f"{s['course']:<15} {s['year_level']:>3}  {s['gwa']:>6.2f}")
 
     print_line("═")
+
+def search_student():
+    print()
+    print_line("─")
+    print("  SEARCH STUDENT")
+    print_line("─")
+
+    student_id = read_string("  Enter Student ID to search: ")
+    idx = find_student(student_id)
+
+    if idx == -1:
+        print(f"  [!] No student found with ID '{student_id}'.")
+        return
+
+    print("\n  [✓] Record found:")
+    print_record(students[idx])
+
+
