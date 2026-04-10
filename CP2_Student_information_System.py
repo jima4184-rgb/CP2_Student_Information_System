@@ -208,4 +208,75 @@ def delete_student():
     removed = students.pop(idx)
     print(f"  [✓] Student '{removed['first_name']} {removed['last_name']}' deleted successfully.")
 
+def show_summary():
+    print()
+    print_line("═")
+    print("  SUMMARY & STATISTICS")
+    print_line("═")
+
+    if not students:
+        print("  No student records to summarize.")
+        print_line("═")
+        return
+
+    gwas       = [s["gwa"] for s in students]
+    average    = sum(gwas) / len(gwas)
+    highest    = max(gwas)
+    lowest     = min(gwas)
+
+    count_per_year = {yr: 0 for yr in range(1, 6)}
+    for s in students:
+        if 1 <= s["year_level"] <= 5:
+            count_per_year[s["year_level"]] += 1
+
+    print(f"  Total Students   : {len(students)}")
+    print(f"  Average GWA      : {average:.2f}")
+    print(f"  Highest GWA      : {highest:.2f}")
+    print(f"  Lowest GWA       : {lowest:.2f}")
+    print_line("─")
+    print("  Students per Year Level:")
+    for yr, count in count_per_year.items():
+        print(f"    Year {yr} : {count} student(s)")
+    print_line("═")
+
+
+def show_menu():
+    print()
+    print_line("═")
+    print("       STUDENT INFORMATION SYSTEM")
+    print_line("═")
+    print("  [1]  Add Student")
+    print("  [2]  View All Students")
+    print("  [3]  Search Student")
+    print("  [4]  Update Student")
+    print("  [5]  Delete Student")
+    print("  [6]  Summary & Statistics")
+    print_line("─")
+    print("  [0]  Exit")
+    print_line("═")
+
+
+def main():
+    print()
+    print("*" * 52)
+    print("  Welcome to the Student Information System")
+    print("*" * 52)
+
+    while True:
+        show_menu()
+        choice = read_int("  Enter your choice: ", 0, 6)
+
+        if   choice == 1: add_student()
+        elif choice == 2: view_all_students()
+        elif choice == 3: search_student()
+        elif choice == 4: update_student()
+        elif choice == 5: delete_student()
+        elif choice == 6: show_summary()
+        elif choice == 0:
+            print("\n  Goodbye! Thank you for using the system.\n")
+            break
+
+
+if __name__ == "__main__":
+    main()
 
