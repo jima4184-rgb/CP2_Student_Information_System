@@ -128,3 +128,58 @@ def search_student():
     print_record(students[idx])
 
 
+def update_student():
+    print()
+    print_line("─")
+    print("  UPDATE STUDENT")
+    print_line("─")
+
+    student_id = read_string("  Enter Student ID to update: ")
+    idx = find_student(student_id)
+
+    if idx == -1:
+        print(f"  [!] No student found with ID '{student_id}'.")
+        return
+
+    print("\n  Current Record:")
+    print_record(students[idx])
+    print("  Enter new details (press Enter to keep current value):\n")
+
+    s = students[idx]
+
+    val = input(f"  First Name   [{s['first_name']}]: ").strip()
+    if val:
+        s["first_name"] = val
+
+    val = input(f"  Last Name    [{s['last_name']}]: ").strip()
+    if val:
+        s["last_name"] = val
+
+    val = input(f"  Course       [{s['course']}]: ").strip()
+    if val:
+        s["course"] = val
+
+    val = input(f"  Year Level   [{s['year_level']}] (1-5, Enter to keep): ").strip()
+    if val:
+        try:
+            yr = int(val)
+            if 1 <= yr <= 5:
+                s["year_level"] = yr
+            else:
+                print("  [!] Invalid year level. Kept original.")
+        except ValueError:
+            print("  [!] Invalid input. Kept original.")
+
+    val = input(f"  GWA          [{s['gwa']:.2f}] (0-100, Enter to keep): ").strip()
+    if val:
+        try:
+            gwa = float(val)
+            if 0.0 <= gwa <= 100.0:
+                s["gwa"] = gwa
+            else:
+                print("  [!] Invalid GWA. Kept original.")
+        except ValueError:
+            print("  [!] Invalid input. Kept original.")
+
+    print("\n  [✓] Record updated.")
+    print_record(s)
